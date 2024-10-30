@@ -6,7 +6,7 @@ config_path = os.path.join(os.path.dirname(__file__), "config.json")
 with open(config_path, "r") as file:
     config = json.load(file)
 
-class display:
+class Display:
     def __init__(self):
         self.ScreenWidth = config["display"]["ScreenWidth"]
         self.ScreenHeight = config["display"]["ScreenHeight"]
@@ -27,7 +27,7 @@ class display:
         self.ButtonRematchPlayer2: pygame.Surface
         self.ButtonRematchDraw: pygame.Surface
         
-        self._FieldCoordinates = config["display"]["FieldCoordinates"]
+        self.FieldCoordinates = config["display"]["FieldCoordinates"]
         
         
 
@@ -37,7 +37,7 @@ class display:
         """
         asset_dir = os.path.join(os.path.dirname(__file__), "assets")
 
-        self.Playingboardboard = pygame.image.load(os.path.join(asset_dir, "board.png"))
+        self.Playingboard = pygame.image.load(os.path.join(asset_dir, "board.png"))
         self.O = pygame.image.load(os.path.join(asset_dir, "O.png"))
         self.X = pygame.image.load(os.path.join(asset_dir, "X.png"))
 
@@ -58,8 +58,9 @@ class display:
         self.ButtonRematchDraw = pygame.image.load(
             os.path.join(asset_dir, "ButtonRematchDraw.png")
         )
+        print("textures Loaded")
 
-    def DrawBoard(self, board: np.array):
+    def DrawBoard(self, board: np.array = [["","",""],["","",""],["","",""]]):
         """
         Draws the current board and position
 
@@ -71,9 +72,9 @@ class display:
         for i, row in enumerate(board):
             for j, field in enumerate(board[i]):
                if  field == "O":
-                   self.screen.blit(self.O, self._FieldCoordinates[i, j])
+                   self.screen.blit(self.O, self.FieldCoordinates[i][j])
                elif field == "X":
-                    self.screen.blit(self.X, self._FieldCoordinates[i, j])
+                    self.screen.blit(self.X, self.FieldCoordinates[i][j])
 
         
     
@@ -83,6 +84,7 @@ class display:
         self.screen.blit(self.ButtonMultiplayer, config["display"]["MultiPlayerPos"])
         self.screen.blit(self.ButtonSingleplayer, config["display"]["SinglePlayerPos"])
         self.screen.blit(self.ButtonQuit, config["display"]["QuitPos"])
+
         
     
     def EndScreen(self, winner: str = ""):
