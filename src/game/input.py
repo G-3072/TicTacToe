@@ -1,7 +1,7 @@
 import pygame, json, os
 import numpy as np
 
-config_path = os.path.join(os.path.dirname(__file__), "config.json")
+config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.json")   #path to .../src/config.json
 
 with open(config_path, "r") as file:
     config = json.load(file)

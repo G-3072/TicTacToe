@@ -2,20 +2,36 @@ from game.display import Display
 from game.logic import Logic
 from game.input import Input
 
-import pygame, sys, numpy as np
+import pygame, sys, os, json
+import numpy as np
 
+#------------------------------ Loading config file ------------------------------
+config_path = os.path.join(os.path.dirname(__file__), "config.json")
+
+with open(config_path, "r") as file:
+    config = json.load(file)
+
+#------------------------------ creating class instances ------------------------------
 display = Display()
+inputs = Input()
+game = Logic()
 
+
+#------------------------------ initializing variables ------------------------------
 running = True
 state = "start"
 
 display.LoadTextures()
 
+
+#------------------------------ game Loop ------------------------------
 while running:
     pygame.display.flip()   #update display
     
     if state == "start":
+        
         display.StartScreen()
+        
         
     elif state == "singleplayer":
         display.DrawBoard()

@@ -1,7 +1,7 @@
 import pygame, os, json
 import numpy as np
 
-config_path = os.path.join(os.path.dirname(__file__), "config.json")
+config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.json")   #path to .../src/config.json
 
 with open(config_path, "r") as file:
     config = json.load(file)
@@ -10,9 +10,8 @@ with open(config_path, "r") as file:
 class Logic:
     def __init__(self):
         self.board = np.array(config["logic"]["Board"])
-        self.turn: str = "X"
-        self.winner: str
-        self.movesPlayed: int
+        self.turn: str = config["logic"]["StartingPlayer"]
+        self.movesPlayed: int = 0
 
     def CheckMove(self, position: tuple):
         """
