@@ -1,6 +1,6 @@
 from game.display import Display
-from game.logic import *
-from game.player import *
+from game.logic import Logic
+from game.input import Input
 
 import pygame, sys, numpy as np
 
