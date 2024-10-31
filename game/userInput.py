@@ -7,42 +7,43 @@ with open(config_path, "r") as file:
     config = json.load(file)
 
 
-class Input:
+class UserInput:
     def __init__(self):
 
         self.mousePos: tuple
         self.FieldRects: np.array
 
-    def ButtonCheck(self, ButtonRectangle: list):
+    def ButtonCheck(self, ButtonRectangle: list, events: list):
         """
-        chacks if specific button was clicked
+        checks if specific button was clicked
 
         Args:
             ButtonRectangle (list): the rectangle of the button to check [x,y,width,height]
+            events (list): list of pygame events
 
         Returns:
             bool: was pressed or not
         """
-        rect = pygame.rect(ButtonRectangle)
-        for event in pygame.event.get():
+        rect = pygame.Rect(ButtonRectangle)
+        for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mousePos = pygame.mouse.get_pos()
                 if rect.collidepoint(self.mousePos):
                     return True
-                else:
-                    return False
+        return False
 
-    def GameInput(self):
+    def GameInput(self, events: list):
         """
         Get inputs while game is played. determine which square was clicked
 
         Returns:
             tuple: row and colum that was clicked on
         """
-        row, col = 0
+        row: int = 0
+        col: int = 0
         fields = np.array(config["input"]["FieldRectangles"])
 
-        for event in pygame.event.get():
+        for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mousePos = pygame.mouse.get_pos()
                 for i, row in enumerate(fields):
@@ -53,3 +54,4 @@ class Input:
                             return row, col
                     col+=1
                 row +=1
+        
