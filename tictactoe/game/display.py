@@ -1,7 +1,9 @@
 import pygame, os, json
 import numpy as np
 
-config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.json")   #path to .../src/config.json
+config_path = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "config.json"
+)  # path to .../src/config.json
 
 with open(config_path, "r") as file:
     config = json.load(file)
@@ -23,6 +25,7 @@ class Display:
         self.ButtonMultiplayer: pygame.Surface
         self.ButtonSingleplayer: pygame.Surface
         self.ButtonQuit: pygame.Surface
+        self.ButtonBack: pygame.Surface
 
         self.ButtonRematchPlayer1: pygame.Surface
         self.ButtonRematchPlayer2: pygame.Surface
@@ -57,7 +60,7 @@ class Display:
         self.ButtonRematchDraw = pygame.image.load(
             os.path.join(asset_dir, "ButtonRematchDraw.png")
         )
-        print("textures Loaded")
+        self.ButtonBack = pygame.image.load(os.path.join(asset_dir, "ButtonBack.png"))
 
     def DrawBoard(self, board: np.array = [["", "", ""], ["", "", ""], ["", "", ""]]):
         """
@@ -85,7 +88,7 @@ class Display:
         self.screen.blit(self.ButtonSingleplayer, config["display"]["SinglePlayerPos"])
         self.screen.blit(self.ButtonQuit, config["display"]["QuitPos"])
 
-    def EndScreen(self, winner: str = ""):
+    def EndScreen(self, winner: str):
         """
         display the correct endScreen depending on who won
 
@@ -97,9 +100,10 @@ class Display:
             self.screen.blit(self.ButtonRematchPlayer1, config["display"]["RematchPos"])
         elif winner == "player2":
             self.screen.blit(self.ButtonRematchPlayer2, config["display"]["RematchPos"])
-        elif winner == "":
+        elif winner == "draw":
             self.screen.blit(self.ButtonRematchDraw, config["display"]["RematchPos"])
-
+        
+        self.screen.blit(self.ButtonBack, config["display"]["BackPos"])
         self.screen.blit(self.ButtonQuit, config["display"]["QuitPos"])
 
     def ClearScreen(self):

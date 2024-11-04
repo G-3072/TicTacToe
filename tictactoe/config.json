@@ -10,7 +10,8 @@
         "MultiPlayerPos":[300, 400],
         "SinglePlayerPos":[300, 550],
         "QuitPos":[300,700],
-        "RematchPos":[300,400]
+        "RematchPos":[300,400],
+        "BackPos":[300, 550]
     },
     
     "logic":{
@@ -33,6 +34,7 @@
         "MultiPlayerRect":[300, 400, 300, 100],
         "SinglePlayerRect":[300, 550, 300, 100],
         "QuitRect":[300, 700, 300, 100],
-        "RematchRect":[300, 400, 300, 100]
+        "RematchRect":[300, 400, 300, 100],
+        "BackRect": [300, 550, 300, 100]
     }
 }

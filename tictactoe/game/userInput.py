@@ -49,9 +49,9 @@ class UserInput:
                 for i, row in enumerate(fields):
                     
                     for j, field in enumerate(row):
-                    
-                        if field.collidepoint(self.mousePos):
-                            return row, col
+                        rect = pygame.Rect(field)
+                        if rect.collidepoint(self.mousePos):
+                            return i, j
                     col+=1
                 row +=1
         
