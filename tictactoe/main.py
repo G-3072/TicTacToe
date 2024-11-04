@@ -1,6 +1,4 @@
-from game.display import Display
-from game.logic import Logic
-from game.userInput import UserInput
+from game import Display, Logic, UserInput
 
 import pygame, sys, os, json
 import numpy as np
@@ -14,7 +12,7 @@ with open(config_path, "r") as file:
 #------------------------------ creating class instances ------------------------------
 display = Display()
 userInput = UserInput()
-game = Logic()
+gameLogic = Logic()
 
 
 #------------------------------ initializing variables ------------------------------
@@ -54,25 +52,25 @@ while running:
         gameInput = userInput.GameInput(events)
         
         if gameInput is not None:
-            if game.isMoveAllowed(gameInput) == True:
-                game.Move(gameInput)
-                game.NextTurn()
+            if gameLogic.isMoveAllowed(gameInput) == True:
+                gameLogic.Move(gameInput)
+                gameLogic.NextTurn()
         
-        if game.isGameOver() == True:
+        if gameLogic.isGameOver() == True:
             state = "end"
             previousState= "multiplayer"
         
-        if game.CheckWin() is not None:
+        if gameLogic.CheckWin() is not None:
             state = "end"
             previousState= "multiplayer"
             
-        display.DrawBoard(game.board)
+        display.DrawBoard(gameLogic.board)
             
             
         
         
     elif state == "end":
-        winner = game.CheckWin()
+        winner = gameLogic.CheckWin()
         
         if winner is not None:
             display.EndScreen(winner)
@@ -80,12 +78,12 @@ while running:
             display.EndScreen("Draw")
             
         if userInput.ButtonCheck(config["input"]["RematchRect"], events):
-            game.Reset()
+            gameLogic.Reset()
             display.ClearScreen()
             state = previousState
         
         if userInput.ButtonCheck(config["input"]["BackRect"], events):
-            game.Reset()
+            gameLogic.Reset()
             state = "start"
             
         if userInput.ButtonCheck(config["input"]["QuitRect"], events):
