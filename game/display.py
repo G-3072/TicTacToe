@@ -1,18 +1,22 @@
-import pygame, os, json
+import pygame
+import os
 import numpy as np
-
-config_path = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), "config.json"
-)  # path to .../src/config.json
-
-with open(config_path, "r") as file:
-    config = json.load(file)
+from .config import (
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    FIELD_COORDINATES,
+    MULTI_PLAYER_POS,
+    SINGLE_PLAYER_POS,
+    QUIT_POS,
+    REMATCH_POS,
+    BACK_POS,
+)
 
 
 class Display:
     def __init__(self):
-        self.ScreenWidth = config["display"]["ScreenWidth"]
-        self.ScreenHeight = config["display"]["ScreenHeight"]
+        self.ScreenWidth = SCREEN_WIDTH
+        self.ScreenHeight = SCREEN_HEIGHT
 
         pygame.display.set_caption("Tic Tac Toe")
         self.screen = pygame.display.set_mode((self.ScreenWidth, self.ScreenHeight))
@@ -31,13 +35,13 @@ class Display:
         self.ButtonRematchPlayer2: pygame.Surface
         self.ButtonRematchDraw: pygame.Surface
 
-        self.FieldCoordinates = np.array(config["display"]["FieldCoordinates"])
+        self.__LoadTextures__()
 
-    def LoadTextures(self):
+    def __LoadTextures__(self):
         """
         loading textures from assets directory
         """
-        asset_dir = os.path.join(os.path.dirname(__file__), "assets")
+        asset_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 
         self.Playingboard = pygame.image.load(os.path.join(asset_dir, "board.png"))
         self.O = pygame.image.load(os.path.join(asset_dir, "O.png"))
@@ -74,37 +78,37 @@ class Display:
         for i, row in enumerate(board):
             for j, field in enumerate(board[i]):
                 if field == "O":
-                    self.screen.blit(self.O, self.FieldCoordinates[i][j])
+                    self.screen.blit(self.O, FIELD_COORDINATES[i,j])
                 elif field == "X":
-                    self.screen.blit(self.X, self.FieldCoordinates[i][j])
+                    self.screen.blit(self.X, FIELD_COORDINATES[i,j])
 
     def StartScreen(self):
         """
         Display the start screen
         """
-        self.screen.fill((0, 0, 0))
+        self.screen.blit(self.Playingboard, (0,0))
 
-        self.screen.blit(self.ButtonMultiplayer, config["display"]["MultiPlayerPos"])
-        self.screen.blit(self.ButtonSingleplayer, config["display"]["SinglePlayerPos"])
-        self.screen.blit(self.ButtonQuit, config["display"]["QuitPos"])
+        self.screen.blit(self.ButtonMultiplayer, MULTI_PLAYER_POS)
+        self.screen.blit(self.ButtonSingleplayer, SINGLE_PLAYER_POS)
+        self.screen.blit(self.ButtonQuit, QUIT_POS)
 
     def EndScreen(self, winner: str):
         """
-        display the correct endScreen depending on who won
+        display the correct end screen depending on who won
 
         Args:
-            winner (str, optional): a string of who won the game. empty string means draw.
-            Defaults to "".
+            winner (str): a string of who won the game.
+
         """
         if winner == "player1":
-            self.screen.blit(self.ButtonRematchPlayer1, config["display"]["RematchPos"])
+            self.screen.blit(self.ButtonRematchPlayer1, REMATCH_POS)
         elif winner == "player2":
-            self.screen.blit(self.ButtonRematchPlayer2, config["display"]["RematchPos"])
+            self.screen.blit(self.ButtonRematchPlayer2, REMATCH_POS)
         elif winner == "draw":
-            self.screen.blit(self.ButtonRematchDraw, config["display"]["RematchPos"])
-        
-        self.screen.blit(self.ButtonBack, config["display"]["BackPos"])
-        self.screen.blit(self.ButtonQuit, config["display"]["QuitPos"])
+            self.screen.blit(self.ButtonRematchDraw, REMATCH_POS)
+
+        self.screen.blit(self.ButtonBack, BACK_POS)
+        self.screen.blit(self.ButtonQuit, QUIT_POS)
 
     def ClearScreen(self):
         self.screen.blit(self.Playingboard, (0, 0))
