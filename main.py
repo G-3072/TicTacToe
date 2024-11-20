@@ -1,7 +1,7 @@
 import pygame
 import sys
 from game import  MULTI_PLAYER_RECT, SINGLE_PLAYER_RECT, QUIT_RECT, REMATCH_RECT, BACK_RECT
-from game import Game, Display, PlayerInput
+from game import Game, Display, PlayerInput, Bot
 
 # Initialize Pygame
 pygame.init()
@@ -10,6 +10,7 @@ pygame.init()
 display = Display()
 gameLogic = Game()
 userInput = PlayerInput()
+bot = Bot()
 
 # Game state variables
 running = True
@@ -39,11 +40,29 @@ while running:
 
         gameInput = userInput.GameInput(events)
 
+        if gameLogic.turn == "O":
+            #bot turn
+            botMove = bot.getMove(gameLogic.board)
+            
+            gameLogic.makeMove(botMove)
+            pass
+        
+        if gameLogic.turn == "X":
+            if gameInput is not None and gameLogic.isMoveAllowed(gameInput):
+                gameLogic.makeMove(gameInput)
+        
+        if gameLogic.checkWinner() is not None:
+            state = "end"
+            previousState = "singleplayer"
+        elif gameLogic.isDraw():
+            state = "end"
+            previousState = "singleplayer"
+        display.DrawBoard(gameLogic.board)
+            
         
 
     elif state == "multiplayer":
         
-
         gameInput = userInput.GameInput(events)
 
         if gameInput is not None and gameLogic.isMoveAllowed(gameInput):

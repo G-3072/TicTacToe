@@ -16,12 +16,7 @@ QUIT_POS = [300, 700]
 REMATCH_POS = [300, 400]
 BACK_POS = [300, 550]
 
-#Game Constants
-BOARD = np.array([
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""]
-])
+
 
 #Input Constants
 FIELD_RECTANGLES = np.array([

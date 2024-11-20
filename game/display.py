@@ -11,6 +11,7 @@ from .config import (
     REMATCH_POS,
     BACK_POS,
 )
+from .board import Board
 
 
 class Display:
@@ -66,7 +67,7 @@ class Display:
         )
         self.ButtonBack = pygame.image.load(os.path.join(asset_dir, "ButtonBack.png"))
 
-    def DrawBoard(self, board: np.array = [["", "", ""], ["", "", ""], ["", "", ""]]):
+    def DrawBoard(self, board: Board):
         """
         Draws the current board and position
 
@@ -76,7 +77,7 @@ class Display:
         self.screen.blit(self.Playingboard, (0, 0))
 
         for i, row in enumerate(board):
-            for j, field in enumerate(board[i]):
+            for j, field in enumerate(row):
                 if field == "O":
                     self.screen.blit(self.O, FIELD_COORDINATES[i,j])
                 elif field == "X":
@@ -100,9 +101,9 @@ class Display:
             winner (str): a string of who won the game.
 
         """
-        if winner == "player1":
+        if winner == "X":
             self.screen.blit(self.ButtonRematchPlayer1, REMATCH_POS)
-        elif winner == "player2":
+        elif winner == "O":
             self.screen.blit(self.ButtonRematchPlayer2, REMATCH_POS)
         elif winner == "draw":
             self.screen.blit(self.ButtonRematchDraw, REMATCH_POS)
