@@ -1,7 +1,7 @@
 import pygame
 import sys
-from game import  MULTI_PLAYER_RECT, SINGLE_PLAYER_RECT, QUIT_RECT, REMATCH_RECT, BACK_RECT
-from game import Game, Display, PlayerInput, Bot
+from src import  MULTI_PLAYER_RECT, SINGLE_PLAYER_RECT, QUIT_RECT, REMATCH_RECT, BACK_RECT
+from src import Game, Display, PlayerInput, Bot
 
 # Initialize Pygame
 pygame.init()

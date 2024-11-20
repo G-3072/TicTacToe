@@ -1,6 +1,6 @@
 import numpy as np
 
-from game import Board
+from src import Board
 
 class Tree:
     def __init__(self, board: Board, maximizer: str):

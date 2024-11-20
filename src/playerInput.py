@@ -3,6 +3,7 @@ from .config import FIELD_RECTANGLES
 
 
 class PlayerInput:
+    
     def __init__(self):
         self.mousePos: list
 
