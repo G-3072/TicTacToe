@@ -9,6 +9,12 @@ class Tree:
         self.maximizer: str = maximizer
 
     def _getTurn(self):
+        """
+        get which players turn it is
+
+        Returns:
+            (str): X or O
+        """
         xcnt = ocnt = 0
 
         for i, row in enumerate(self.board):
@@ -24,6 +30,12 @@ class Tree:
             return "X"
 
     def _getMoves(self):
+        """
+        retruns array of all possible moves on board
+
+        Returns:
+            moves (np.NDarray): array containing tuples of all possible moves
+        """
         moves = np.empty((1, 2), dtype=np.int8)
 
         for i, row in enumerate(self.board):
@@ -35,6 +47,12 @@ class Tree:
         return moves
 
     def _getWinner(self):
+        """
+        check if someone won the game and return the winner
+
+        Returns:
+            winner (str): rturns winner as X or O 
+        """
         for row in self.board:
             if row[0] == row[1] == row[2] != ".":
                 return row[0]
@@ -50,7 +68,12 @@ class Tree:
             return self.board[0, 2]
 
     def getBestMove(self):
+        """
+        selects the best move the bot can play and returns it
 
+        Returns:
+            move (tuple): tuple of the best move 
+        """
         turn = self._getTurn()
         moves = self._getMoves()
         branches = np.empty(moves.__len__(), dtype=object)
@@ -92,7 +115,9 @@ class Branch(Tree):
 
     def _getBranches(self):
 
-        # nextTurn = "X" if self.turn == "O" else "O"
+        """
+        creates array containing brances for every possible move
+        """
 
         moves = self._getMoves()
         self.branches = np.empty(moves.__len__(), dtype=object)
@@ -103,6 +128,12 @@ class Branch(Tree):
             self.branches[i] = Branch(newBoard, self.maximizer)
 
     def getScore(self):
+        """
+        simulates all future boards and gets a best score for branch
+
+        Returns:
+            score (int): score of the branch
+        """
         winner = self._getWinner()
         moves = self._getMoves()
 
@@ -135,7 +166,14 @@ class Bot:
         self.maximizer = "O"
     
     def getMove(self, board: Board):
+        """
+        wrapper function for simple use. get the move the bot should play
+
+        Args:
+            board (Board): the current board
+
+        Returns:
+            move (tuple): move to play
+        """
         minimax = Tree(board, self.maximizer)
-        
-        
         return minimax.getBestMove()

@@ -28,7 +28,16 @@ class Board:
             yield row
 
     def clear(self):
+        """
+        resets board to starting state
+        """
         self._board = np.full((3, 3), fill_value=".")
 
     def copy(self):
+        """
+        returns a copy of the object
+
+        Returns:
+            Board: copy of current object
+        """
         return copy.deepcopy(self)

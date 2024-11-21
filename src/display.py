@@ -72,7 +72,7 @@ class Display:
         Draws the current board and position
 
         Args:
-            board (np.array): representation of the playing board as 3x3 2d numpy array
+            board (Board): representation of the playing board as 3x3 2d numpy array
         """
         self.screen.blit(self.Playingboard, (0, 0))
 
