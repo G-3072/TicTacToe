@@ -1,5 +1,6 @@
 import pygame
-from src import FIELD_RECTANGLES, Player
+from .config import FIELD_RECTANGLES
+from .player import Player
 
 class Human(Player):
     def __init__(self, symbol: str):
@@ -8,7 +9,7 @@ class Human(Player):
     def getSymbol(self):
         return self.symbol
     
-    def getMove(self, events: list):
+    def getMove(self, events: list = None, board:object = None):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mousePos = pygame.mouse.get_pos()

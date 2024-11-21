@@ -15,7 +15,7 @@ class Board:
             yield row
     
     def _isMoveAllowed(self, x:int, y:int):
-        if self._board[x,y] == ".":
+        if self.checkSquare(x,y) == ".":
             return True
         else:
             return False

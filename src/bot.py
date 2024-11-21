@@ -1,6 +1,8 @@
 import numpy as np
 
-from src import Board, Player
+from .board import Board
+from .player import Player
+
 
 class Tree:
     def __init__(self, board: Board, maximizer: str):
@@ -53,19 +55,19 @@ class Tree:
         Returns:
             winner (str): rturns winner as X or O 
         """
-        for row in self.board:
-            if row[0] == row[1] == row[2] != ".":
-                return row[0]
+        for i, _ in enumerate(self.board):
+            if self.board.checkSquare(i, 0) == self.board.checkSquare(i, 1) == self.board.checkSquare(i, 2) != ".":
+                return self.board.checkSquare(i, 0)
 
         for col in range(3):
-            if self.board[0, col] == self.board[1, col] == self.board[2, col] != ".":
-                return self.board[0, col]
+            if self.board.checkSquare(0, col) == self.board.checkSquare(1, col) == self.board.checkSquare(2, col) != ".":
+                return self.board.checkSquare(0, col)
 
-        if self.board[0, 0] == self.board[1, 1] == self.board[2, 2] != ".":
-            return self.board[0, 0]
+        if self.board.checkSquare(0, 0) == self.board.checkSquare(1, 1) == self.board.checkSquare(2, 2) != ".":
+            return self.board.checkSquare(0, 0)
 
-        if self.board[0, 2] == self.board[1, 1] == self.board[2, 0] != ".":
-            return self.board[0, 2]
+        if self.board.checkSquare(0, 2) == self.board.checkSquare(1, 1) == self.board.checkSquare(2, 0) != ".":
+            return self.board.checkSquare(1, 1)
 
     def getBestMove(self):
         """
@@ -84,7 +86,7 @@ class Tree:
         for i, move in enumerate(moves):
 
             newBoard = self.board.copy()
-            newBoard[move[0], move[1]] = turn
+            newBoard.setSquare(move[0], move[1], turn)
             branches[i] = Branch(newBoard, self.maximizer)
 
             self.evaluatedMoves[int(branches[i].getScore())] = (
@@ -124,7 +126,7 @@ class Branch(Tree):
 
         for i, move in enumerate(moves):
             newBoard = self.board.copy()
-            newBoard[move[0], move[1]] = self.turn
+            newBoard.setSquare(move[0], move[1], self.turn)
             self.branches[i] = Branch(newBoard, self.maximizer)
 
     def getScore(self):
@@ -169,7 +171,7 @@ class Bot(Player):
     def getSymbol(self):
         return self.symbol
     
-    def getMove(self, board: Board):
+    def getMove(self, events: list = None, board: Board = None):
         """
         wrapper function for simple use. get the move the bot should play
 
