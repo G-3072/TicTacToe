@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 
+
 class Board:
     def __init__(self):
         self._board = np.full((3, 3), fill_value=".", dtype=str)

@@ -1,5 +1,5 @@
 
-__all__ = ["display","game","playerInput"]
+__all__ = ["display","game","playerInput","bot", "config"]
 
 from .display import Display
 from .game import Game
