@@ -7,5 +7,5 @@ class Player(ABC):
         pass
     
     @abstractmethod
-    def getMove(self):
+    def getMove(self, events: list = None):
         pass

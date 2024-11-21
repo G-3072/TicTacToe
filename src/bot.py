@@ -1,6 +1,6 @@
 import numpy as np
 
-from src import Board
+from src import Board, Player
 
 class Tree:
     def __init__(self, board: Board, maximizer: str):
@@ -161,9 +161,13 @@ class Branch(Tree):
 
         return self.score
     
-class Bot:
-    def __init__(self):
+class Bot(Player):
+    def __init__(self, symbol: str):
+        self.symbol = symbol
         self.maximizer = "O"
+        
+    def getSymbol(self):
+        return self.symbol
     
     def getMove(self, board: Board):
         """
