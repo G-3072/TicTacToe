@@ -107,13 +107,14 @@ class Tree:
 class Branch(Tree):
 
     def __init__(self, board: Board, maximizer: str):
-        self.score: int
-        self.board: Board = board
-        self.branches: np.ndarray
-        self.maximizer: str = maximizer
-        self.minimizer: str = "O" if maximizer == "X" else "X"
-        self.turn: str = self._getTurn()
-        self.evaluatedMoves = dict()
+        self.score: int     #score of current branch (1, 0, -1)
+        self.board: Board = board   #computer representation of current board
+        self.branches: np.ndarray   #list of all branches. each branch is for posiible move from current branch
+        self.maximizer: str = maximizer # mplayer trying to maximize the branch score
+        self.minimizer: str = "O" if maximizer == "X" else "X"  #player trying to minimize the score
+        self.turn: str = self._getTurn()    #current turn
+        self.evaluatedMoves = dict()    #dictionary linking possible moves to score for players to select
+        
 
     def _getBranches(self):
 

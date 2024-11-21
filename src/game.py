@@ -10,15 +10,13 @@ from .config import *
 
 class Game:
     def __init__(self):
-        self.board = Board()
-        self.movesPlayed: int = 0
-        
-        self.state: int = gameState.START
-        self.display: Display
-        
-        self.player1: Human
+        self.board = Board()    #computer representation of the board 
+        self.movesPlayed: int = 0   #counter of how many moves have been played
+        self.state: int = gameState.START   #state of the state machine
+        self.display: Display   # display object to handle all graphics
+        self.player1: Human     
         self.player2: object
-        self.currentPlayer: object
+        self.currentPlayer: object  #which player is currently playing
         
         
     def setup(self):
@@ -30,26 +28,21 @@ class Game:
     def play(self):
         
         self.setup()
-        
         running = True
         
         while running:
-            
             pygame.display.flip()  # Update display
             events = pygame.event.get()  # Get pygame events
-            
             match self.state:
                 case gameState.START:
-                    self.display.StartScreen()
                     
+                    self.display.StartScreen()
                     if self.player1.CheckButtonClick(MULTI_PLAYER_RECT, events):
                         self.player2 = Human("O")
                         self.state = gameState.PLAYING
-                        
                     if self.player1.CheckButtonClick(SINGLE_PLAYER_RECT, events):
                         self.player2 = Bot("O")
                         self.state = gameState.PLAYING
-                    
                     if self.player1.CheckButtonClick(QUIT_RECT, events):
                         pygame.quit()
                         return
@@ -58,29 +51,22 @@ class Game:
                     
                     if self._checkWinner() is not None or self._isDraw():
                         self.state = gameState.END
-
-                    
                     move = self.currentPlayer.getMove(events=events, board= self.board)
                     if move is not None:
                         self._makeMove(move)
-                    
                     self.display.DrawBoard(self.board)
                     
                 case gameState.END:
                     
                     winner = self._checkWinner()
-                    
                     self.display.EndScreen(winner)
-                    
                     if self.player1.CheckButtonClick(REMATCH_RECT, events):
                         self._reset()
                         self.display.ClearScreen()
                         self.state = gameState.PLAYING
-                    
                     if self.player1.CheckButtonClick(BACK_RECT, events):
                         self._reset()
                         self.state = gameState.START
-                    
                     if self.player1.CheckButtonClick(QUIT_RECT, events):
                         pygame.quit()
                         return
