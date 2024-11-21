@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 class Player(ABC):
+    symbol: str
     @abstractmethod
     def getSymbol(self):
         pass
