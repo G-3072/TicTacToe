@@ -1,6 +1,6 @@
 import pygame
 from .config import FIELD_RECTANGLES
-from .player import Player
+from ._player import Player
 
 class Human(Player):
     def __init__(self, symbol: str):

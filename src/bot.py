@@ -1,7 +1,7 @@
 import numpy as np
 
 from .board import Board
-from .player import Player
+from ._player import Player
 
 
 class Tree:
