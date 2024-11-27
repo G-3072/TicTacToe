@@ -6,20 +6,6 @@ class Board:
     def __init__(self):
         self._board = np.full((3, 3), fill_value=".", dtype=str)
 
-    def __getitem__(self, index):
-        if isinstance(index, int):
-            return self._board[index, :]
-        else:
-            row, col = index
-            return self._board[row, col]
-
-    def __setitem__(self, index, value):
-        if isinstance(index, int):
-            self._board[index, :] = value
-        else:
-            row, col = index
-            self._board[row, col] = value
-
     def __str__(self):
 
         return "\n".join([" ".join(map(str, row)) for row in self._board]) + "\n"
@@ -27,6 +13,19 @@ class Board:
     def __iter__(self):
         for row in self._board:
             yield row
+    
+    def _isMoveAllowed(self, x:int, y:int):
+        if self.checkSquare(x,y) == ".":
+            return True
+        else:
+            return False
+
+    def setSquare(self, x:int, y:int, player: str):
+        if self._isMoveAllowed(x,y) == True:
+            self._board[x,y] = player
+    
+    def checkSquare(self, x:int, y:int):
+        return self._board[x,y]
 
     def clear(self):
         """

@@ -1,4 +1,5 @@
 import numpy as np
+from enum import Enum
 
 #Display Constants
 SCREEN_HEIGHT = 900
@@ -16,7 +17,12 @@ QUIT_POS = [300, 700]
 REMATCH_POS = [300, 400]
 BACK_POS = [300, 550]
 
-
+#game
+class gameState(Enum):
+    START = 0
+    SINGLEPLAYER = 1
+    MULTIPLAYER = 2
+    END = 3
 
 #Input Constants
 FIELD_RECTANGLES = np.array([

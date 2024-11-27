@@ -1,11 +1,9 @@
 
-__all__ = ["display","game","playerInput","bot", "config"]
+__all__ = ["Game", "Display", "Board", "Human", "Bot", "Player", "config"]
 
-from .display import Display
 from .game import Game
-from .playerInput import PlayerInput
-from .config import *
+from .display import Display
 from .board import Board
-
 from .bot import Bot
-
+from .player import Player
+from .config import *
