@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 import pygame
 from .config import FIELD_RECTANGLES
-from .board import Board
 
 class Player(ABC):
     _symbol: str
@@ -10,17 +9,17 @@ class Player(ABC):
         pass
     
     @abstractmethod
-    def getMove(self, events: list = None, board: Board = None):
+    def getMove(self):
         pass
 
 class Human(Player):
     def __init__(self, symbol: str):
-        self.symbol = symbol
+        self._symbol = symbol
         
     def getSymbol(self):
-        return self.symbol
+        return self._symbol
     
-    def getMove(self, events: list = None, board:Board = None):
+    def getMove(self, events: list = None):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mousePos = pygame.mouse.get_pos()
