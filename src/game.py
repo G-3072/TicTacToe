@@ -1,11 +1,10 @@
 import numpy as np
 import pygame
 from .board import Board
-from .human import Human
-from .bot import Bot
 from .display import Display
 from .config import *
-# from . 
+from .player import Human
+from .bot import Bot
 
 
 class Game:

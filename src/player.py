@@ -1,6 +1,17 @@
+from abc import ABC, abstractmethod
 import pygame
 from .config import FIELD_RECTANGLES
-from ._player import Player
+from .board import Board
+
+class Player(ABC):
+    _symbol: str
+    @abstractmethod
+    def getSymbol(self):
+        pass
+    
+    @abstractmethod
+    def getMove(self, events: list = None, board: Board = None):
+        pass
 
 class Human(Player):
     def __init__(self, symbol: str):
@@ -9,7 +20,7 @@ class Human(Player):
     def getSymbol(self):
         return self.symbol
     
-    def getMove(self, events: list = None, board:object = None):
+    def getMove(self, events: list = None, board:Board = None):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mousePos = pygame.mouse.get_pos()
@@ -29,3 +40,4 @@ class Human(Player):
                 if rect.collidepoint(self.mousePos):
                     return True
         return False
+
