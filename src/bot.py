@@ -71,10 +71,10 @@ class Tree:
         Returns:
             move (tuple): tuple of the best move 
         """
+        moves = self._getMoves()
         if moves.__len__() == 0:    #dont do anything if game is over
             return None
         
-        moves = self._getMoves()
         branches = np.empty(moves.__len__(), dtype=object)
         
         for i, move in enumerate(moves):
