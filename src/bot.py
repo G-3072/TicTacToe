@@ -54,7 +54,7 @@ class Tree:
             if self.board.checkSquare(i, 0) == self.board.checkSquare(i, 1) == self.board.checkSquare(i, 2) != ".":
                 return self.board.checkSquare(i, 0)
         #check columns of board for wins
-        for col in range(3):
+        for col, _ in enumerate(self.board):
             if self.board.checkSquare(0, col) == self.board.checkSquare(1, col) == self.board.checkSquare(2, col) != ".":
                 return self.board.checkSquare(0, col)
         #check left to right diagonal of board for win

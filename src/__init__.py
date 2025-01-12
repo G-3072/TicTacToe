@@ -6,4 +6,5 @@ from .display import Display
 from .board import Board
 from .bot import Bot
 from .player import Player
+from .human import Human
 from .config import *

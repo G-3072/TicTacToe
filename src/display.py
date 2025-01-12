@@ -49,23 +49,13 @@ class Display:
         self._O = pygame.image.load(os.path.join(asset_dir, "O.png"))
         self._X = pygame.image.load(os.path.join(asset_dir, "X.png"))
 
-        self._ButtonMultiplayer = pygame.image.load(
-            os.path.join(asset_dir, "ButtonMultiplayer.png")
-        )
-        self._ButtonSingleplayer = pygame.image.load(
-            os.path.join(asset_dir, "ButtonSingleplayer.png")
-        )
+        self._ButtonMultiplayer = pygame.image.load(os.path.join(asset_dir, "ButtonMultiplayer.png"))
+        self._ButtonSingleplayer = pygame.image.load(os.path.join(asset_dir, "ButtonSingleplayer.png"))
         self._ButtonQuit = pygame.image.load(os.path.join(asset_dir, "ButtonQuit.png"))
 
-        self._ButtonRematchPlayer1 = pygame.image.load(
-            os.path.join(asset_dir, "ButtonRematchPlayer1.png")
-        )
-        self._ButtonRematchPlayer2 = pygame.image.load(
-            os.path.join(asset_dir, "ButtonRematchPlayer2.png")
-        )
-        self._ButtonRematchDraw = pygame.image.load(
-            os.path.join(asset_dir, "ButtonRematchDraw.png")
-        )
+        self._ButtonRematchPlayer1 = pygame.image.load(os.path.join(asset_dir, "ButtonRematchPlayer1.png"))
+        self._ButtonRematchPlayer2 = pygame.image.load(os.path.join(asset_dir, "ButtonRematchPlayer2.png"))
+        self._ButtonRematchDraw = pygame.image.load(os.path.join(asset_dir, "ButtonRematchDraw.png"))
         self._ButtonBack = pygame.image.load(os.path.join(asset_dir, "ButtonBack.png"))
 
     def DrawBoard(self, board: Board):

@@ -3,32 +3,27 @@ import pygame
 from .board import Board
 from .display import Display
 from .config import *
-from .player import Human
+from .human import Human
 from .bot import Bot
 
 
 class Game:
     def __init__(self):
+        pygame.init()
         self.board = Board()    #computer representation of the board 
         self.movesPlayed: int = 0   #counter of how many moves have been played
         self.state: int = gameState.START   #state of the state machine
         self.previousState: int     #previous game state so rematches go to correct mode
-        self.display: Display   #display object to handle all graphics
-        self.player1: Human     #player who plays X. always human for start- and endscreen inputs
+        self.display: Display = Display()   #display object to handle all graphics
+        self.player1: Human = Human("X")    #player who plays X. always human for start- and endscreen inputs
         self.player2: object    #player who plays O. human or bot depending on gamemode
-        self.currentPlayer: object  #which player is currently playing
-        
-    def _setup(self):
-        pygame.init()
-        self.display = Display()
-        self.player1 = Human("X")
-        self.currentPlayer = self.player1
+        self.currentPlayer: object = self.player1 #which player is currently playing
 
     def play(self):
         """
         run game
         """
-        self._setup()
+
         running = True
         
         while running:
